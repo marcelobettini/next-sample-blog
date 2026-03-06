@@ -4,13 +4,15 @@ import type { Post } from "@/types/types"
 
 // 1. Capa de Servicios (Acceso a Datos)
 async function fetchPosts() {
-  const res = await fetch('https://dummyjson.com/posts?select=title,userId,tags,views')
+  const res = await fetch('https://dummyjson.com/posts?select=title,userId,tags,views', {})
   if (!res.ok) throw new Error('Error al obtener posts')
   return res.json()
 }
 
 async function fetchUserById(id: number) {
-  const res = await fetch(`https://dummyjson.com/users/${id}`)
+  const res = await fetch(`https://dummyjson.com/users/${id}`, {
+    cache: 'no-store', // Estrategia de cache para optimizar rendimiento
+  })
   if (!res.ok) throw new Error(`Error al obtener usuario ${id}`)
   return res.json()
 }
