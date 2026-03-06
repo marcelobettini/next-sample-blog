@@ -4,14 +4,17 @@ import type { Post } from "@/types/types"
 
 // 1. Capa de Servicios (Acceso a Datos)
 async function fetchPosts() {
-  const res = await fetch('https://dummyjson.com/posts?select=title,userId,tags,views&skip=0&limit=10', {})
+  const res = await fetch('https://dummyjson.com/posts?select=title,userId,tags,views&skip=0&limit=10', {
+    next: { revalidate: 3600, tags: ['posts'] }, // Cache de 1 hora para la lista de posts / - tags para control granular de cache. La invalidamos si se actualiza un post, por ejemplo revalidateTag('posts)
+  })
   if (!res.ok) throw new Error('Error al obtener posts')
   return res.json()
 }
 
 async function fetchUserById(id: number) {
   const res = await fetch(`https://dummyjson.com/users/${id}`, {
-    cache: 'no-store', // Estrategia de cache para optimizar rendimiento
+    next: { revalidate: 3600, tags: ['users'] }, // Cache de 1 hora para los usuarios 
+    cache: 'force-cache', // Forzamos cache para usuarios, asumiendo que no cambian frecuentemente
   })
   if (!res.ok) throw new Error(`Error al obtener usuario ${id}`)
   return res.json()
@@ -53,7 +56,8 @@ export default async function Blog() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post: Post) => (
           <Link key={post.id} href={`/blog/${post.id}`} className="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lime-300 transition-all duration-400 flex flex-col">
-            <h2 className="text-2xl text-gray-800 font-semibold mb-4">{post.title.toUpperCase()}</h2>
+            {/* Evitamos .toUpperCase() en el JS, mejor usar CSS: uppercase */}
+            <h2 className="text-2xl text-gray-800 font-semibold mb-4 uppercase">{post.title}</h2>
             <p className="text-gray-600">{post.authorName}</p>
             <small className="text-indigo-800 italic text-end">#{post.tags.join(", #")}</small>
           </Link>
