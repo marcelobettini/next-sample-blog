@@ -4,7 +4,7 @@ import type { Post } from "@/types/types"
 
 // 1. Capa de Servicios (Acceso a Datos)
 async function fetchPosts() {
-  const res = await fetch('https://dummyjson.com/posts?select=title,userId,tags,views', {})
+  const res = await fetch('https://dummyjson.com/posts?select=title,userId,tags,views&skip=0&limit=10', {})
   if (!res.ok) throw new Error('Error al obtener posts')
   return res.json()
 }
@@ -35,7 +35,7 @@ export async function getPostsWithAuthors() {
   )
 
   // Paso D: Hidratación (Data Join)
-  return posts.map((post: any) => ({
+  return posts.map((post: Post) => ({
     id: post.id,
     title: post.title,
     tags: post.tags,
@@ -53,7 +53,7 @@ export default async function Blog() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post: Post) => (
           <Link key={post.id} href={`/blog/${post.id}`} className="bg-white rounded-lg shadow-md p-6 cursor-pointer hover:shadow-lime-300 transition-all duration-400 flex flex-col">
-            <h2 className="text-2xl text-gray-800 font-semibold mb-4">{post.title}</h2>
+            <h2 className="text-2xl text-gray-800 font-semibold mb-4">{post.title.toUpperCase()}</h2>
             <p className="text-gray-600">{post.authorName}</p>
             <small className="text-indigo-800 italic text-end">#{post.tags.join(", #")}</small>
           </Link>
