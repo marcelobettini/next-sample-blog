@@ -1,4 +1,5 @@
 import type { Post } from "@/types/types"
+import { Metadata } from "next"
 export default async function BlogPostPage({
     params,
 }: {
@@ -21,6 +22,9 @@ export default async function BlogPostPage({
             </article>
         </div>
     )
+}
+export const metadata: Metadata = {
+    title: 'Next Blog - Artículo',
 }
 
 

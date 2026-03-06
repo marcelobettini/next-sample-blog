@@ -6,6 +6,7 @@ export interface Post {
     reactions: Reactions
     views: number
     userId: number
+    authorName?: string
 }
 
 export interface Reactions {
