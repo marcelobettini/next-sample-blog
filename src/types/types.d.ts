@@ -6,6 +6,16 @@ export interface Post {
     reactions: Reactions
     views: number
     userId: number
+}
+
+interface PostsResponse {
+    posts: Post[],
+    total: number,
+    skip: number,
+    limit: number
+}
+
+export interface PostExcerptWithAuthor extends Pick<Post, "id" | "title" | "tags"> {
     authorName?: string
 }
 
@@ -13,6 +23,7 @@ export interface Reactions {
     likes: number
     dislikes: number
 }
+
 export interface Comment {
     id: number
     body: string

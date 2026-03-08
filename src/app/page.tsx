@@ -9,8 +9,3 @@ export default function Home() {
 
     )
 }
-
-export const metadata: Metadata = {
-    title: 'Next Blog - Página principal',
-    description: 'Bienvenido a nuestro blog de prueba hecho con Next.js y TypeScript.',
-}

@@ -5,13 +5,14 @@ export default function BlogLoading() {
     const skeletonCards = Array.from({ length: 9 })
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto mt-8 px-4 flex flex-col items-center justify-center  gap-4">
             {/* Configuración de Grid:
           - 1 columna por defecto (móvil)
           - 2 columnas en tablets (sm/md)
           - 3 columnas en desktop (lg+) 
       */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="h-6 w-50 text-center bg-gray-100 animate-pulse rounded-md mb-2" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 w-full">
                 {skeletonCards.map((_, i) => (
                     <article
                         key={i}

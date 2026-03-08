@@ -1,6 +1,6 @@
 export default function LoadingSinglePost() {
     return (
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 flex flex-col items-center justify-center h-screen">
             {/* Mantenemos el mismo ancho md:w-[80ch] para evitar que el contenedor "salte" */}
             <article className="grid grid-cols-1 gap-6 bg-white rounded-lg p-6 md:w-[80ch] mx-auto">
 
